@@ -1,17 +1,32 @@
-[gd_scene load_steps=3 format=3 uid="uid://cwxahadrvu4xn"]
+[gd_scene load_steps=4 format=3 uid="uid://cwxahadrvu4xn"]
 
 [ext_resource type="Texture2D" uid="uid://ck5w4mefb21dx" path="res://icon.svg" id="2_y6p00"]
 [ext_resource type="Script" path="res://move.gd" id="3_rtv5j"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r3jfv"]
+size = Vector2(125, 130)
+
 [node name="Node2D" type="Node2D"]
 
-[node name="s1" type="Sprite2D" parent="."]
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="s1" type="Sprite2D" parent="Node2D"]
 position = Vector2(100, 100)
 texture = ExtResource("2_y6p00")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="Node2D"]
 autostart = true
 script = ExtResource("3_rtv5j")
 
-[connection signal="customSignal" from="Timer" to="Timer" method="_on_custom_signal"]
-[connection signal="timeout" from="Timer" to="Timer" method="_on_timeout"]
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+position = Vector2(244, 100)
+texture = ExtResource("2_y6p00")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(244, 101)
+shape = SubResource("RectangleShape2D_r3jfv")
+
+[connection signal="customSignal" from="Node2D/Timer" to="Node2D/Timer" method="_on_custom_signal"]
+[connection signal="timeout" from="Node2D/Timer" to="Node2D/Timer" method="_on_timeout"]
